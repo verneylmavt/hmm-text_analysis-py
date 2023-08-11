@@ -42,8 +42,16 @@ For the RU Dataset:
 jupyter notebook ru_hmm_dev.ipynb
 ```
 4. **Execute the Notebook**
+
 Once the Jupyter Notebook interface opens in your browser, navigate to the Cell menu and select Run All to execute all the cells.
 ## Dependencies
+
+5. **Test F-Score**
+Once you have run all the codes, you can check the F-Scores by executing:
+```bash
+python evalResult.py dev.out <YOUR_FILENAME_HERE>
+```
+
 **Note**: Ensure you have Jupyter installed in your working environment with all the required dependencies. If it's not installed, you can get it using:
 ```bash
 pip install jupyter
@@ -52,11 +60,6 @@ pip install pandas
 pip install mathplotlib
 pip install seaborn
 pip install heapq
-```
-5. **Test F-Score**
-Once you have run all the codes, you can check the F-Scores by executing:
-```bash
-python evalResult.py dev.out <YOUR_FILENAME_HERE>
 ```
 
 ## Contributors
