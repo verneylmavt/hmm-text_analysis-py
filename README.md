@@ -53,6 +53,12 @@ pip install mathplotlib
 pip install seaborn
 pip install heapq
 ```
+5. **Test F-Score**
+Once you have run all the codes, you can check the F-Scores by executing:
+```bash
+python evalResult.py dev.out <YOUR_FILENAME_HERE>
+```
+
 ## Contributors
 
 This project was made possible thanks to the hard work and dedication of the following team members:
