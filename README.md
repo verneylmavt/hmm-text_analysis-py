@@ -46,6 +46,7 @@ jupyter notebook ru_hmm_dev.ipynb
 Once the Jupyter Notebook interface opens in your browser, navigate to the Cell menu and select Run All to execute all the cells.
 
 5. **Test F-Score**
+
 Once you have run all the codes, you can check the F-Scores by executing:
 ```bash
 python evalResult.py dev.out <YOUR_FILENAME_HERE>
