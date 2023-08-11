@@ -44,7 +44,6 @@ jupyter notebook ru_hmm_dev.ipynb
 4. **Execute the Notebook**
 
 Once the Jupyter Notebook interface opens in your browser, navigate to the Cell menu and select Run All to execute all the cells.
-## Dependencies
 
 5. **Test F-Score**
 Once you have run all the codes, you can check the F-Scores by executing:
@@ -52,6 +51,8 @@ Once you have run all the codes, you can check the F-Scores by executing:
 python evalResult.py dev.out <YOUR_FILENAME_HERE>
 ```
 
+
+## Dependencies
 **Note**: Ensure you have Jupyter installed in your working environment with all the required dependencies. If it's not installed, you can get it using:
 ```bash
 pip install jupyter
