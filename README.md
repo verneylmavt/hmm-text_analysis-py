@@ -32,6 +32,7 @@ cd 50.007-1D_Project/RU
 ```
 
 3. **Open your Jupyter Notebook**
+
 For the ES Dataset:
 ```bash
 jupyter notebook es_hmm_dev.ipynb
