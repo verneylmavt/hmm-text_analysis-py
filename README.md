@@ -21,6 +21,7 @@ git clone https://github.com/verneylmavt/50.007-1D_Project.git
 ```
 
 2. **Navigate to the Project Directory**
+
 For the ES Dataset:
 ```bash
 cd 50.007-1D_Project/ES
@@ -31,6 +32,7 @@ cd 50.007-1D_Project/RU
 ```
 
 3. **Open your Jupyter Notebook**
+
 For the ES Dataset:
 ```bash
 jupyter notebook es_hmm_dev.ipynb
@@ -40,7 +42,17 @@ For the RU Dataset:
 jupyter notebook ru_hmm_dev.ipynb
 ```
 4. **Execute the Notebook**
+
 Once the Jupyter Notebook interface opens in your browser, navigate to the Cell menu and select Run All to execute all the cells.
+
+5. **Test F-Score**
+
+Once you have run all the codes, you can check the F-Scores by executing:
+```bash
+python evalResult.py dev.out <YOUR_FILENAME_HERE>
+```
+
+
 ## Dependencies
 **Note**: Ensure you have Jupyter installed in your working environment with all the required dependencies. If it's not installed, you can get it using:
 ```bash
@@ -51,6 +63,7 @@ pip install mathplotlib
 pip install seaborn
 pip install heapq
 ```
+
 ## Contributors
 
 This project was made possible thanks to the hard work and dedication of the following team members:
