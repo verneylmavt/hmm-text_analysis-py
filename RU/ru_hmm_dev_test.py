@@ -1,16 +1,27 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[50]:
 
 
 import numpy as np
 import pandas as pd
 
-# import matplotlib.pyplot as plt
+# import matplotlib.pyplot as	plt
 # import seaborn as sns
 import json
 import math
+import time
+
+
+# In[51]:
+
+
+# Start the timer
+start_time = time.time()
+
+
+# In[52]:
 
 
 def install_module(module_name):
@@ -35,7 +46,9 @@ try:
 except ImportError:
     install_module("pandas")
     import pandas as pd
-# In[2]:
+
+
+# In[53]:
 
 
 # https://ray.so/#code=UFMgRDpcRXBoeXJ1c1xWUyBTb3VyY2UgQ29kZVw1MC4wMDdcMUQgUHJvamVjdFxSVVxFdmFsU2NyaXB0PiBweXRob24gZXZhbFJlc3VsdC5weSBkZXYub3V0IGRldi5wcmVkaWN0aW9uMQojRW50aXR5IGluIGdvbGQgZGF0YTogMzg5CiNFbnRpdHkgaW4gcHJlZGljdGlvbjogMTgxNgojQ29ycmVjdCBFbnRpdHkgOiAyNjYKRW50aXR5ICBwcmVjaXNpb246IDAuMTQ2NQpFbnRpdHkgIHJlY2FsbDogMC42ODM4CkVudGl0eSAgRjogMC4yNDEzCiNDb3JyZWN0IFNlbnRpbWVudCA6IDEyOQpTZW50aW1lbnQgIHByZWNpc2lvbjogMC4wNzEwClNlbnRpbWVudCAgcmVjYWxsOiAwLjMzMTYKU2VudGltZW50ICBGOiAwLjExNzAKCgoKUFMgRDpcRXBoeXJ1c1xWUyBTb3VyY2UgQ29kZVw1MC4wMDdcMUQgUHJvamVjdFxSVVxFdmFsU2NyaXB0PiBweXRob24gZXZhbFJlc3VsdC5weSBkZXYub3V0IGRldi5wcmVkaWN0aW9uMgojRW50aXR5IGluIGdvbGQgZGF0YTogMzg5CiNFbnRpdHkgaW4gcHJlZGljdGlvbjogMzgwCiNDb3JyZWN0IEVudGl0eSA6IDYzCkVudGl0eSAgcHJlY2lzaW9uOiAwLjE2NTgKRW50aXR5ICByZWNhbGw6IDAuMTYyMApFbnRpdHkgIEY6IDAuMTYzOAojQ29ycmVjdCBTZW50aW1lbnQgOiA1MgpTZW50aW1lbnQgIHByZWNpc2lvbjogMC4xMzY4ClNlbnRpbWVudCAgcmVjYWxsOiAwLjEzMzcKU2VudGltZW50ICBGOiAwLjEzNTIKCgoKUFMgRDpcRXBoeXJ1c1xWUyBTb3VyY2UgQ29kZVw1MC4wMDdcMUQgUHJvamVjdFxSVVxFdmFsU2NyaXB0PiBweXRob24gZXZhbFJlc3VsdC5weSBkZXYub3V0IGRldi5wcmVkaWN0aW9uM19rXzEKI0VudGl0eSBpbiBnb2xkIGRhdGE6IDM4OQojRW50aXR5IGluIHByZWRpY3Rpb246IDY2MgojQ29ycmVjdCBFbnRpdHkgOiA1MQpFbnRpdHkgIHByZWNpc2lvbjogMC4wNzcwCkVudGl0eSAgcmVjYWxsOiAwLjEzMTEKRW50aXR5ICBGOiAwLjA5NzEKI0NvcnJlY3QgU2VudGltZW50IDogMzkKU2VudGltZW50ICBwcmVjaXNpb246IDAuMDU4OQpTZW50aW1lbnQgIHJlY2FsbDogMC4xMDAzClNlbnRpbWVudCAgRjogMC4wNzQyCgoKClBTIEQ6XEVwaHlydXNcVlMgU291cmNlIENvZGVcNTAuMDA3XDFEIFByb2plY3RcUlVcRXZhbFNjcmlwdD4gcHl0aG9uIGV2YWxSZXN1bHQucHkgZGV2Lm91dCBkZXYucHJlZGljdGlvbjNfa18yCiNFbnRpdHkgaW4gZ29sZCBkYXRhOiAzODkKI0VudGl0eSBpbiBwcmVkaWN0aW9uOiA4MDkKI0NvcnJlY3QgRW50aXR5IDogNTgKRW50aXR5ICBwcmVjaXNpb246IDAuMDcxNwpFbnRpdHkgIHJlY2FsbDogMC4xNDkxCkVudGl0eSAgRjogMC4wOTY4CiNDb3JyZWN0IFNlbnRpbWVudCA6IDMzClNlbnRpbWVudCAgcHJlY2lzaW9uOiAwLjA0MDgKU2VudGltZW50ICByZWNhbGw6IDAuMDg0OApTZW50aW1lbnQgIEY6IDAuMDU1MQoKCgpQUyBEOlxFcGh5cnVzXFZTIFNvdXJjZSBDb2RlXDUwLjAwN1wxRCBQcm9qZWN0XFJVXEV2YWxTY3JpcHQ-IHB5dGhvbiBldmFsUmVzdWx0LnB5IGRldi5vdXQgZGV2LnByZWRpY3Rpb24zX2tfMwojRW50aXR5IGluIGdvbGQgZGF0YTogMzg5CiNFbnRpdHkgaW4gcHJlZGljdGlvbjogODI5CiNDb3JyZWN0IEVudGl0eSA6IDU3CkVudGl0eSAgcHJlY2lzaW9uOiAwLjA2ODgKRW50aXR5ICByZWNhbGw6IDAuMTQ2NQpFbnRpdHkgIEY6IDAuMDkzNgojQ29ycmVjdCBTZW50aW1lbnQgOiAyNgpTZW50aW1lbnQgIHByZWNpc2lvbjogMC4wMzE0ClNlbnRpbWVudCAgcmVjYWxsOiAwLjA2NjgKU2VudGltZW50ICBGOiAwLjA0MjcKCgoKUFMgRDpcRXBoeXJ1c1xWUyBTb3VyY2UgQ29kZVw1MC4wMDdcMUQgUHJvamVjdFxSVVxFdmFsU2NyaXB0PiBweXRob24gZXZhbFJlc3VsdC5weSBkZXYub3V0IGRldi5wcmVkaWN0aW9uM19rXzQKI0VudGl0eSBpbiBnb2xkIGRhdGE6IDM4OQojRW50aXR5IGluIHByZWRpY3Rpb246IDg0MQojQ29ycmVjdCBFbnRpdHkgOiA0NgpFbnRpdHkgIHByZWNpc2lvbjogMC4wNTQ3CkVudGl0eSAgcmVjYWxsOiAwLjExODMKRW50aXR5ICBGOiAwLjA3NDgKI0NvcnJlY3QgU2VudGltZW50IDogMjAKU2VudGltZW50ICBwcmVjaXNpb246IDAuMDIzOApTZW50aW1lbnQgIHJlY2FsbDogMC4wNTE0ClNlbnRpbWVudCAgRjogMC4wMzI1CgoKClBTIEQ6XEVwaHlydXNcVlMgU291cmNlIENvZGVcNTAuMDA3XDFEIFByb2plY3RcUlVcRXZhbFNjcmlwdD4gcHl0aG9uIGV2YWxSZXN1bHQucHkgZGV2Lm91dCBkZXYucHJlZGljdGlvbjNfa181CiNFbnRpdHkgaW4gZ29sZCBkYXRhOiAzODkKI0VudGl0eSBpbiBwcmVkaWN0aW9uOiA4NzMKI0NvcnJlY3QgRW50aXR5IDogNDIKRW50aXR5ICBwcmVjaXNpb246IDAuMDQ4MQpFbnRpdHkgIHJlY2FsbDogMC4xMDgwCkVudGl0eSAgRjogMC4wNjY2CiNDb3JyZWN0IFNlbnRpbWVudCA6IDIzClNlbnRpbWVudCAgcHJlY2lzaW9uOiAwLjAyNjMKU2VudGltZW50ICByZWNhbGw6IDAuMDU5MQpTZW50aW1lbnQgIEY6IDAuMDM2NQoKCgpQUyBEOlxFcGh5cnVzXFZTIFNvdXJjZSBDb2RlXDUwLjAwN1wxRCBQcm9qZWN0XFJVXEV2YWxTY3JpcHQ-IHB5dGhvbiBldmFsUmVzdWx0LnB5IGRldi5vdXQgZGV2LnByZWRpY3Rpb24zX2tfNgojRW50aXR5IGluIGdvbGQgZGF0YTogMzg5CiNFbnRpdHkgaW4gcHJlZGljdGlvbjogODUxCiNDb3JyZWN0IEVudGl0eSA6IDMzCkVudGl0eSAgcHJlY2lzaW9uOiAwLjAzODgKRW50aXR5ICByZWNhbGw6IDAuMDg0OApFbnRpdHkgIEY6IDAuMDUzMgojQ29ycmVjdCBTZW50aW1lbnQgOiAxMgpTZW50aW1lbnQgIHByZWNpc2lvbjogMC4wMTQxClNlbnRpbWVudCAgcmVjYWxsOiAwLjAzMDgKU2VudGltZW50ICBGOiAwLjAxOTQKCgoKUFMgRDpcRXBoeXJ1c1xWUyBTb3VyY2UgQ29kZVw1MC4wMDdcMUQgUHJvamVjdFxSVVxFdmFsU2NyaXB0PiBweXRob24gZXZhbFJlc3VsdC5weSBkZXYub3V0IGRldi5wcmVkaWN0aW9uM19rXzcKI0VudGl0eSBpbiBnb2xkIGRhdGE6IDM4OQojRW50aXR5IGluIHByZWRpY3Rpb246IDg2MgojQ29ycmVjdCBFbnRpdHkgOiA0MApFbnRpdHkgIHByZWNpc2lvbjogMC4wNDY0CkVudGl0eSAgcmVjYWxsOiAwLjEwMjgKRW50aXR5ICBGOiAwLjA2MzkKI0NvcnJlY3QgU2VudGltZW50IDogMTkKU2VudGltZW50ICBwcmVjaXNpb246IDAuMDIyMApTZW50aW1lbnQgIHJlY2FsbDogMC4wNDg4ClNlbnRpbWVudCAgRjogMC4wMzA0CgoKUFMgRDpcRXBoeXJ1c1xWUyBTb3VyY2UgQ29kZVw1MC4wMDdcMUQgUHJvamVjdFxSVVxFdmFsU2NyaXB0PiBweXRob24gZXZhbFJlc3VsdC5weSBkZXYub3V0IGRldi5wcmVkaWN0aW9uM19rXzgKI0VudGl0eSBpbiBnb2xkIGRhdGE6IDM4OQojRW50aXR5IGluIHByZWRpY3Rpb246IDgyMgojQ29ycmVjdCBFbnRpdHkgOiAzMwpFbnRpdHkgIHByZWNpc2lvbjogMC4wNDAxCkVudGl0eSAgcmVjYWxsOiAwLjA4NDgKRW50aXR5ICBGOiAwLjA1NDUKI0NvcnJlY3QgU2VudGltZW50IDogMTMKU2VudGltZW50ICBwcmVjaXNpb246IDAuMDE1OApTZW50aW1lbnQgIHJlY2FsbDogMC4wMzM0ClNlbnRpbWVudCAgRjogMC4wMjE1CgoKClBTIEQ6XEVwaHlydXNcVlMgU291cmNlIENvZGVcNTAuMDA3XDFEIFByb2plY3RcUlVcRXZhbFNjcmlwdD4gcHl0aG9uIGV2YWxSZXN1bHQucHkgZGV2Lm91dCBkZXYucHJlZGljdGlvbjQgICAgCiNFbnRpdHkgaW4gZ29sZCBkYXRhOiAzODkKI0VudGl0eSBpbiBwcmVkaWN0aW9uOiAyOTQKI0NvcnJlY3QgRW50aXR5IDogMTg4CkVudGl0eSAgcHJlY2lzaW9uOiAwLjYzOTUKRW50aXR5ICByZWNhbGw6IDAuNDgzMwpFbnRpdHkgIEY6IDAuNTUwNQojQ29ycmVjdCBTZW50aW1lbnQgOiAxMzIKU2VudGltZW50ICBwcmVjaXNpb246IDAuNDQ5MApTZW50aW1lbnQgIHJlY2FsbDogMC4zMzkzClNlbnRpbWVudCAgRjogMC4zODY1&language=shell&theme=midnight&padding=32&title=RU+Dataset
@@ -45,7 +58,7 @@ except ImportError:
 
 # $p\left(x_1, \ldots, x_n, y_1, \ldots, y_n\right)=\prod_{i=1}^{n+1} q\left(y_i \mid y_{i-1}\right) \cdot \prod_{i=1}^n e\left(x_i \mid y_i\right)$
 
-# In[3]:
+# In[54]:
 
 
 # Read the training data from 'train.txt' file.
@@ -61,10 +74,10 @@ df = pd.read_csv(
 )
 
 
-# In[4]:
+# In[55]:
 
 
-# In[5]:
+# In[56]:
 
 
 # Extract the 'Token' and 'Label' columns separately.
@@ -80,10 +93,10 @@ token_all = df_token.squeeze().unique()
 label_all = df_label.squeeze().unique()
 
 
-# In[6]:
+# In[57]:
 
 
-# In[7]:
+# In[58]:
 
 
 # Construct a dataframe for labels with their counts and locations in the original dataset.
@@ -92,40 +105,88 @@ y_all["Location"] = [np.where(arr_label == i)[0] for i in label_all]
 y_all["Count"] = [len(y_all.loc[i, "Location"]) for i in range(len(y_all))]
 
 
-# In[8]:
+# In[59]:
 
+
+# Precompute counts and locations for each unique token-label pair
+token_label_dict = {}
+for i, (token, label) in enumerate(zip(arr_token, arr_label)):
+    if (token, label) not in token_label_dict:
+        token_label_dict[(token, label)] = {"count": 0, "locations": []}
+    token_label_dict[(token, label)]["count"] += 1
+    token_label_dict[(token, label)]["locations"].append(i)
 
 # Construct a dataframe for tokens.
 x_all = pd.DataFrame(token_all, columns=["Token"])
 
-# This takes >1m to do.
-# Expand the dataframe by repeating each token 7 times (assuming 7 is a predetermined number based on the dataset).
+# Expand the dataframe by repeating each token 7 times
 new_x_all = pd.DataFrame({"Token": np.repeat(x_all["Token"], 7)}).reset_index()
 new_x_all.columns = ["Index", "Token"]
 
 # Associate each repeated token with a label.
 new_x_all["Label"] = np.tile(label_all, int(len(new_x_all) / 7))
 
-# For each token-label pair, count the occurrences and note the locations in the original dataset.
-count_x_all = []
-location_x_all = []
+# Use the precomputed dictionary to populate counts and locations
+new_x_all["Count"] = new_x_all.apply(
+    lambda row: token_label_dict.get((row["Token"], row["Label"]), {}).get("count", 0),
+    axis=1,
+)
+new_x_all["Location"] = new_x_all.apply(
+    lambda row: token_label_dict.get((row["Token"], row["Label"]), {}).get(
+        "locations", []
+    ),
+    axis=1,
+)
 
-for i in token_all:
-    for j in label_all:
-        cond_1 = arr_token == i
-        cond_2 = arr_label == j
-        loc = (np.where(cond_1 & cond_2)[0]).tolist()
-        count_x_all += [len(loc)]
-        location_x_all += [loc]
 
-# Append the counts and locations to the expanded dataframe.
-new_x_all["Count"] = count_x_all
-new_x_all["Location"] = location_x_all
+# In[60]:
+
+
+# # Construct a dataframe for tokens.
+# x_all = pd.DataFrame(token_all, columns=['Token'])
+
+# # This takes >1m to do.
+# # Expand the dataframe by repeating each token 7 times (assuming 7 is a predetermined number based on the dataset).
+# new_x_all = pd.DataFrame({'Token': np.repeat(x_all['Token'], 7)}).reset_index()
+# new_x_all.columns = ['Index', 'Token']
+
+# # Associate each repeated token with a label.
+# new_x_all["Label"] = np.tile(label_all, int(len(new_x_all)/7))
+
+# # For each token-label pair, count the occurrences and note the locations in the original dataset.
+# count_x_all = []
+# location_x_all = []
+
+# for i in token_all:
+#     for j in label_all:
+#         cond_1 = arr_token == i
+#         cond_2 = arr_label == j
+#         loc = (np.where(cond_1 & cond_2)[0]).tolist()
+#         count_x_all += [len(loc)]
+#         location_x_all += [loc]
+
+# # Append the counts and locations to the expanded dataframe.
+# new_x_all["Count"] = count_x_all
+# new_x_all["Location"] = location_x_all
+
+# print(len(new_x_all))
+# print(type(new_x_all))
+# display(new_x_all)
+
+
+# In[61]:
+
+
+token_label_dict_x = dict(
+    zip(zip(new_x_all["Token"], new_x_all["Label"]), new_x_all["Count"])
+)
+label_count_dict_y = dict(zip(y_all["Label"], y_all["Count"]))
+unique_tokens_x = set(new_x_all["Token"])
 
 
 # $1. \:\:\: e(x \mid y)=\frac{\operatorname{Count}(y \rightarrow x)}{\operatorname{Count}(y)}$
 
-# In[9]:
+# In[62]:
 
 
 def emm_par(x, y):
@@ -140,17 +201,11 @@ def emm_par(x, y):
     - float: Emission parameter value for the token-label pair.
     """
 
-    # Define condition to filter rows in 'new_x_all' dataframe where 'Token' matches x.
-    cond_1 = new_x_all["Token"] == x
-    # Define condition to filter rows in 'new_x_all' dataframe where 'Label' matches y.
-    cond_2 = new_x_all["Label"] == y
     # Extract the count value for the specific token-label combination.
-    num = ((new_x_all[cond_1 & cond_2])["Count"]).values[0]
+    num = token_label_dict_x.get((x, y))
 
-    # Define condition to filter rows in 'y_all' dataframe where 'Label' matches y.
-    cond_3 = y_all["Label"] == y
     # Extract the total count value for the specific label.
-    denom = ((y_all[cond_3])["Count"]).values[0]
+    denom = label_count_dict_y.get(y, 0)
 
     # Return the emission parameter, calculated as the count of the token-label pair divided by the total count of the label.
     return num / denom
@@ -161,7 +216,7 @@ def emm_par(x, y):
 # \frac{k}{\operatorname{Count}(y)+k} & \text { If word token } x \text { is the special token \#UNK\# }
 # \end{array}\right.$
 
-# In[10]:
+# In[63]:
 
 
 def emm_par_test(x, y):
@@ -180,23 +235,20 @@ def emm_par_test(x, y):
     k = 1
 
     # If the token 'x' exists in the 'new_x_all' dataframe, retrieve its count for the given label 'y'.
-    if x in new_x_all.loc[:, "Token"].unique():
-        cond_1 = new_x_all["Token"] == x
-        cond_2 = new_x_all["Label"] == y
-        num = ((new_x_all[cond_1 & cond_2])["Count"]).values[0]
+    if x in unique_tokens_x:
+        num = token_label_dict_x.get((x, y), k)
     else:
         # If the token 'x' does not exist, assign the count as the smoothing constant 'k'.
         num = k
 
     # Retrieve the total count for the given label 'y'.
-    cond_3 = y_all["Label"] == y
-    denom = ((y_all[cond_3])["Count"]).values[0] + k  # Add 'k' for smoothing.
+    denom = label_count_dict_y.get(y, 0) + k  # Add 'k' for smoothing.
 
     # Return the smoothed emission parameter, calculated as the count of the token-label pair divided by the smoothed total count of the label.
     return num / denom
 
 
-# In[11]:
+# In[64]:
 
 
 # Initialize an empty list to store the emission parameter scores for each token-label pair.
@@ -205,7 +257,7 @@ emm_par_score_all = []
 new_token_all = np.append(token_all, "#UNK#")
 
 
-# In[12]:
+# In[65]:
 
 
 # Need to check more, this takes >2m to do
@@ -220,7 +272,7 @@ for i in token_all:
         emm_par_score_all += [emm_par_score]
 
 
-# In[13]:
+# In[66]:
 
 
 # Add the computed emission parameter scores as a new column "e(x|y)" in the 'new_x_all' dataframe.
@@ -229,7 +281,7 @@ new_x_all["e(x|y)"] = emm_par_score_all
 
 # $3. \:\:\:y^*=\underset{y}{\arg \max } \:e(x \mid y)$
 
-# In[14]:
+# In[67]:
 
 
 # Initialize an empty DataFrame for future use.
@@ -243,7 +295,7 @@ y_star_all = []
 new_token_all = np.append(token_all, "#UNK#")
 
 
-# In[15]:
+# In[68]:
 
 
 # Need to check more, this takes >2m to do
@@ -268,10 +320,10 @@ for i in new_token_all:
     emm_par_score_all += [emm_par_score]
 
 
-# In[16]:
+# In[69]:
 
 
-# In[17]:
+# In[70]:
 
 
 # Add the 'new_token_all' list as a new column "Token" in the 'df_y' DataFrame.
@@ -282,7 +334,7 @@ df_y["y*"] = y_star_all
 df_y["Max e(x|y)"] = emm_par_score_all
 
 
-# In[18]:
+# In[71]:
 
 
 # Convert the 'df_y' DataFrame to a dictionary where each key is a token, and the corresponding value is a tuple containing the most likely label and its emission score.
@@ -294,7 +346,7 @@ df_y_dict = {
 
 # ### Emission Probability Testing
 
-# In[19]:
+# In[72]:
 
 
 # df_test = pd.read_csv('dev_out.txt', sep=' ', on_bad_lines='skip', engine="python", quoting=3,  dtype=str, encoding='utf-8', names=["Token", "Label"])
@@ -311,7 +363,7 @@ data = [line.split(" ") if line else ["", ""] for line in lines]
 df_test_original = pd.DataFrame(data, columns=["Token", "Label"])
 
 
-# In[20]:
+# In[73]:
 
 
 # Create a copy of the original DataFrame to work with.
@@ -330,7 +382,7 @@ token_test_all = df_test_token.squeeze().unique()
 label_test_all = df_test_label.squeeze().unique()
 
 
-# In[21]:
+# In[74]:
 
 
 # Initialize an empty list to store predicted labels.
@@ -357,7 +409,7 @@ for i in arr_test_token:
         new_token += [i]
 
 
-# In[22]:
+# In[75]:
 
 
 # Add the list of predicted labels as a new column to the 'df_test' DataFrame.
@@ -369,7 +421,7 @@ arr_test_pred_label = (
 ).to_numpy()
 
 
-# In[23]:
+# In[76]:
 
 
 df_out = df_test.loc[:, ["Token", "Predicted Label (Part 1)"]]
@@ -379,7 +431,7 @@ df_out.to_csv("dev.p1.out", sep=" ", index=False, header=False)
 
 # # Part 2
 
-# In[24]:
+# In[77]:
 
 
 # df_test = pd.read_csv('dev_out.txt', sep=' ', on_bad_lines='skip', engine="python", quoting=3,  dtype=str, encoding='utf-8', names=["Token", "Label"])
@@ -403,16 +455,16 @@ data = [
 df_ss = pd.DataFrame(data, columns=["Token", "Label (yi-1)"])
 
 
-# In[25]:
+# In[78]:
 
 
 problematic_lines = [line for line in data if len(line) > 2]
 
 
-# In[26]:
+# In[79]:
 
 
-# In[27]:
+# In[80]:
 
 
 # Extract the 'Label (yi-1)' column for further processing.
@@ -421,7 +473,7 @@ df_label_ss = df_ss.loc[:, ["Label (yi-1)"]]
 arr_label_ss = (df_label_ss.squeeze()).to_numpy()
 
 
-# In[28]:
+# In[81]:
 
 
 # Insert the special label 'START' at the beginning and 'STOP' at the end of the label array.
@@ -429,17 +481,17 @@ label_all_ss = np.insert(label_all, 0, "START")
 label_all_ss = np.append(label_all_ss, "STOP")
 
 
-# In[29]:
+# In[82]:
 
 
 # Convert the modified label array to a pandas DataFrame.
 y_all_ss = pd.DataFrame(label_all_ss, columns=["Label (yi-1)"])
 
 
-# In[30]:
+# In[83]:
 
 
-# In[31]:
+# In[84]:
 
 
 # Create a copy of the DataFrame with column name changed to 'Label' for subsequent operations.
@@ -447,45 +499,83 @@ new_x_all_ss = y_all_ss.copy()
 new_x_all_ss.columns = ["Label"]
 
 
-# In[32]:
+# In[85]:
 
 
-# Create a DataFrame that repeats each 'Label (yi-1)' 9 times, to account for all possible destination labels (yi).
+# Create a DataFrame that repeats each 'Label (yi-1)' 9 times.
 new_y_all_ss = pd.DataFrame(
     {"Label (yi-1)": np.repeat(y_all_ss["Label (yi-1)"], 9)}
 ).reset_index()
 new_y_all_ss.columns = ["Index", "Label (yi-1)"]
 
-# Tile the labels so that each source label ('Label (yi-1)') is paired with every possible destination label ('Destination Label (yi)').
+# Tile the labels so that each source label is paired with every possible destination label.
 new_y_all_ss["Destination Label (yi)"] = np.tile(
     label_all_ss, int(len(new_y_all_ss) / 9)
 )
 
-# Initialize a count column to store the number of occurrences of each (yi-1, yi) pair.
-new_y_all_ss["Count (yi-1,yi)"] = np.zeros(len(new_y_all_ss), dtype=int)
+# Use a dictionary to store the count of each (yi-1, yi) pair.
+transition_count_dict = {
+    (prev_label, curr_label): 0
+    for prev_label in y_all_ss["Label (yi-1)"]
+    for curr_label in label_all_ss
+}
 
 # Initialize a label to represent the previous label in the sequence.
 previous_y = "START"
 
-# Iterate through the list of labels, updating the count for each observed (yi-1, yi) pair.
+# Iterate through the list of labels and update the transition_counts dictionary.
 for i in arr_label_ss:
     if i == "":
         i = "STOP"
     current_y = i
-    # Increment the count for the observed (yi-1, yi) pair.
-    new_y_all_ss.loc[
-        (new_y_all_ss["Label (yi-1)"] == previous_y)
-        & (new_y_all_ss["Destination Label (yi)"] == current_y),
-        "Count (yi-1,yi)",
-    ] += 1
+    transition_count_dict[(previous_y, current_y)] += 1
     if current_y == "STOP":
         current_y = "START"
     previous_y = current_y
 
-# Display the updated DataFrame with counts for each (yi-1, yi) pair.
+# Update the DataFrame using the transition_counts dictionary.
+new_y_all_ss["Count (yi-1,yi)"] = new_y_all_ss.apply(
+    lambda row: transition_count_dict.get(
+        (row["Label (yi-1)"], row["Destination Label (yi)"]), 0
+    ),
+    axis=1,
+)
+
+# Display the updated DataFrame.
 
 
-# In[33]:
+# In[86]:
+
+
+# # Create a DataFrame that repeats each 'Label (yi-1)' 9 times, to account for all possible destination labels (yi).
+# new_y_all_ss = pd.DataFrame({'Label (yi-1)': np.repeat(y_all_ss['Label (yi-1)'], 9)}).reset_index()
+# new_y_all_ss.columns = ['Index', 'Label (yi-1)']
+
+# # Tile the labels so that each source label ('Label (yi-1)') is paired with every possible destination label ('Destination Label (yi)').
+# new_y_all_ss["Destination Label (yi)"] = np.tile(label_all_ss, int(len(new_y_all_ss)/9))
+
+# # Initialize a count column to store the number of occurrences of each (yi-1, yi) pair.
+# new_y_all_ss["Count (yi-1,yi)"] = np.zeros(len(new_y_all_ss), dtype=int)
+
+# # Initialize a label to represent the previous label in the sequence.
+# previous_y = "START"
+
+# # Iterate through the list of labels, updating the count for each observed (yi-1, yi) pair.
+# for i in arr_label_ss:
+#     if i == "":
+#         i = "STOP"
+#     current_y = i
+#     # Increment the count for the observed (yi-1, yi) pair.
+#     new_y_all_ss.loc[(new_y_all_ss['Label (yi-1)'] == previous_y) & (new_y_all_ss['Destination Label (yi)'] == current_y), 'Count (yi-1,yi)'] += 1
+#     if current_y == "STOP":
+#         current_y = "START"
+#     previous_y = current_y
+
+# # Display the updated DataFrame with counts for each (yi-1, yi) pair.
+# display(new_y_all_ss)
+
+
+# In[87]:
 
 
 # Calculate the total counts for each 'Label (yi-1)' over all its destination labels 'Label (yi)'.
@@ -507,7 +597,7 @@ new_x_all_ss.loc[new_x_all_ss["Label"] == "STOP", "Count"] = new_x_all_ss.loc[
 
 # $2. \:\:\:q\left(y_i \mid y_{i-1}\right)=\frac{\operatorname{Count}\left(y_{i-1}, y_i\right)}{\operatorname{Count}\left(y_{i-1}\right)}$
 
-# In[34]:
+# In[88]:
 
 
 # Define a function to calculate the transition probability q(yi|yi-1) for given labels yi and yi-1.
@@ -529,7 +619,7 @@ def q_test(x, y):
     return num / denom
 
 
-# In[35]:
+# In[89]:
 
 
 # List to store all computed q-values.
@@ -542,22 +632,22 @@ for i in label_all_ss:
         q_value_all += [q_value]
 
 
-# In[36]:
+# In[90]:
 
 
 # Add the computed q-values as a new column 'q(yi|yi-1)' in the new_y_all_ss DataFrame.
 new_y_all_ss["q(yi|yi-1)"] = q_value_all
 
 
-# In[37]:
+# In[91]:
 
 
-# In[38]:
+# In[92]:
 
 
 # $3. \:\:\:y_1^*, \ldots, y_n^*=\underset{y_1, \ldots, y_n}{\arg \max } \:\:p\left(x_1, \ldots, x_n, y_1, \ldots, y_n\right)$
 
-# In[39]:
+# In[93]:
 
 
 import numpy as np
@@ -628,7 +718,7 @@ def viterbi_algorithm(sent, transition_probs, emission_probs, tags, all_states):
 
 # ### Viterbi Algorithm Testing
 
-# In[40]:
+# In[94]:
 
 
 # Define a function to create starting probabilities for each label.
@@ -704,7 +794,7 @@ def create_emit_probs(df):
     return emit_prob
 
 
-# In[41]:
+# In[95]:
 
 
 # Extract all unique states (tokens) from the data.
@@ -740,7 +830,7 @@ emit_prob = create_emit_prob(new_x_all)
 emit_probs = create_emit_probs(new_x_all)
 
 
-# In[42]:
+# In[96]:
 
 
 # Initialize empty lists to store the best paths and their corresponding probabilities.
@@ -762,14 +852,14 @@ for i in sent:
 # Display the computed best paths and their probabilities.
 
 
-# In[43]:
+# In[97]:
 
 
 # Add the computed best paths as a new column to the test DataFrame.
 df_test["Predicted Label (Part 2)"] = all_best_path
 
 
-# In[44]:
+# In[98]:
 
 
 df_out = df_test.loc[:, ["Token", "Predicted Label (Part 2)"]]
@@ -779,7 +869,7 @@ df_out.to_csv("dev.p2.out", sep=" ", index=False, header=False)
 
 # ## Part 3
 
-# In[45]:
+# In[99]:
 
 
 import heapq
@@ -875,7 +965,7 @@ def k_best_viterbi(
 
 # ### Kth Best Viterbi Algorithm Testing (K=2)
 
-# In[46]:
+# In[100]:
 
 
 # Set the number of best paths to be found.
@@ -899,7 +989,7 @@ for i in sent:
         all_best_paths[j + 1] += best_path
 
 
-# In[47]:
+# In[101]:
 
 
 # Create a copy of the original test DataFrame.
@@ -917,7 +1007,7 @@ for i in range(k):
 # Display the updated test DataFrame with the k best paths.
 
 
-# In[48]:
+# In[102]:
 
 
 # Iterate through the range of k (number of best paths).
@@ -932,7 +1022,7 @@ for i in range(k):
     df_out.to_csv(loc, sep=" ", index=False, header=False)
 
 
-# In[49]:
+# In[103]:
 
 
 df_out = df_test_2.loc[
@@ -943,7 +1033,7 @@ df_out.to_csv("dev.p3.2nd.out", sep=" ", index=False, header=False)
 
 # ### Kth Best Viterbi Algorithm Testing (K=8)
 
-# In[50]:
+# In[104]:
 
 
 # Set the value of k (number of best paths) to 8.
@@ -972,7 +1062,7 @@ for i in sent:
         all_best_paths[l + 1] += [""]
 
 
-# In[51]:
+# In[105]:
 
 
 # Create a copy of the original test dataframe.
@@ -992,7 +1082,7 @@ for i in range(k):
 # Display the modified dataframe with predictions.
 
 
-# In[52]:
+# In[106]:
 
 
 # For each value in the range of k...
@@ -1007,7 +1097,7 @@ for i in range(k):
     df_out.to_csv(loc, sep=" ", index=False, header=False)
 
 
-# In[53]:
+# In[107]:
 
 
 df_out = df_test_8.loc[
@@ -1029,9 +1119,9 @@ df_out.to_csv("dev.p3.8th.out", sep=" ", index=False, header=False)
 
 # ## Part 4
 
-# ### Version 1
+# ### Version 1: Morphological Clues (Suffix)
 
-# In[54]:
+# In[108]:
 
 
 import numpy as np
@@ -1122,7 +1212,7 @@ def improved_viterbi_algorithm_1(
     return best_path, best_path_prob
 
 
-# In[55]:
+# In[109]:
 
 
 from collections import defaultdict
@@ -1174,14 +1264,14 @@ def generate_suffix_probs(df, max_suffix_length=3):
     return suffix_probs
 
 
-# In[56]:
+# In[110]:
 
 
 # Generate the suffix probabilities using the dataframe
 suffix_prob = generate_suffix_probs(df.copy())
 
 
-# In[57]:
+# In[111]:
 
 
 # List to store the best paths for each sentence in 'sent'
@@ -1206,7 +1296,7 @@ for i in sent:
 # Print the overall best paths and their probabilities for all sentences
 
 
-# In[58]:
+# In[112]:
 
 
 # Add the predicted labels to the 'df_test' DataFrame
@@ -1214,16 +1304,16 @@ df_test["Predicted Label (Part 4) Ver. 1"] = all_best_path
 # Display the updated 'df_test' DataFrame
 
 
-# In[59]:
+# In[113]:
 
 
 df_out = df_test.loc[:, ["Token", "Predicted Label (Part 4) Ver. 1"]]
 # df_out.to_csv('EvalScript/dev.prediction4_1', sep=' ', index=False, header=False)
 
 
-# ### Version 2
+# ### Version 2: Morphological Clues (Affix)
 
-# In[60]:
+# In[114]:
 
 
 def improved_viterbi_algorithm_2(
@@ -1286,7 +1376,7 @@ def improved_viterbi_algorithm_2(
     return best_path, best_path_prob
 
 
-# In[61]:
+# In[115]:
 
 
 # Define a function to obtain the root of a word
@@ -1325,7 +1415,7 @@ def train_root_tag_dict(df):
     return root_tag_dict
 
 
-# In[62]:
+# In[116]:
 
 
 # Generate root words for the given DataFrame 'df'
@@ -1333,7 +1423,7 @@ root_tag_dict = train_root_tag_dict(df.copy())
 # Print the generated root-tag probabilities
 
 
-# In[63]:
+# In[117]:
 
 
 # Initialize lists to store the best paths and their corresponding probabilities for each sentence
@@ -1355,7 +1445,7 @@ for i in sent:
 # Print the final list of best paths and their probabilities
 
 
-# In[64]:
+# In[118]:
 
 
 # Add the predicted labels to the test DataFrame as a new column "Predicted Label (Part 4) Ver. 2"
@@ -1363,7 +1453,7 @@ df_test["Predicted Label (Part 4) Ver. 2"] = all_best_path
 # Display the updated test DataFrame with the new predictions
 
 
-# In[65]:
+# In[119]:
 
 
 df_out = df_test.loc[:, ["Token", "Predicted Label (Part 4) Ver. 2"]]
@@ -1371,7 +1461,7 @@ df_out = df_test.loc[:, ["Token", "Predicted Label (Part 4) Ver. 2"]]
 df_out.to_csv("dev.p4.out", sep=" ", index=False, header=False)
 
 
-# In[85]:
+# In[120]:
 
 
 # Open the file 'test_in.txt' in read mode
@@ -1388,10 +1478,10 @@ df_test_test = pd.DataFrame(data, columns=["Token"])
 sent_test = create_observed_states(df_test_test)
 
 
-# In[86]:
+# In[121]:
 
 
-# In[87]:
+# In[122]:
 
 
 # Generate root words for the given DataFrame 'df_test'
@@ -1399,7 +1489,7 @@ root_tag_dict_test = train_root_tag_dict((df_test.loc[:, ["Token", "Label"]]).co
 # Print the generated root-tag probabilities
 
 
-# In[88]:
+# In[123]:
 
 
 # Initialize lists to store the best path (sequence of tags) and its probability for each sentence in the test set
@@ -1427,17 +1517,89 @@ for i in sent_test:
 # Display the predicted sequences and their probabilities
 
 
-# In[89]:
+# In[124]:
 
 
 # Add the computed best paths as a new column to the test DataFrame.
 df_test_test["Predicted Label"] = all_best_path_test
 
 
-# In[90]:
+# In[125]:
 
 
 df_out_test = df_test_test.loc[:, ["Token", "Predicted Label"]]
 df_out_test.to_csv("test.p4.out", sep=" ", index=False, header=False)
 
+
+# ### All Version
+
+# In[126]:
+
+
+# # Select the columns you want to export
+# df_12 = (df_test.copy())[['Token', 'Label', 'Predicted Label (Part 1)', 'Predicted Label (Part 2)']]
+
+# # Export to Excel format
+# df_12.to_excel('Output/dev_prediction_RU_12.xlsx', index=False)
+
+
+# In[127]:
+
+
+# # Drop the 'Token' and 'Label' columns from df2
+# df1 = (df_test.copy()).drop(['Token', 'Label'], axis=1)
+# df2 = df_test_8.copy()
+
+# # Concatenate the two dataframes
+# df_all = pd.concat([df1, df2], axis=1)
+
+# # Rearrange columns to the desired order
+# order = [
+#     'Token', 'Label', 'Predicted Label (Part 1)', 'Predicted Label (Part 2)',
+#     'Predicted Label (Part 3) K=1', 'Predicted Label (Part 3) K=2',
+#     'Predicted Label (Part 3) K=3', 'Predicted Label (Part 3) K=4',
+#     'Predicted Label (Part 3) K=5', 'Predicted Label (Part 3) K=6',
+#     'Predicted Label (Part 3) K=7', 'Predicted Label (Part 3) K=8',
+#     'Predicted Label (Part 4)'
+# ]
+
+# df_all = df_all[order]
+
+# # Export to Excel format
+# df_all.to_excel('Output/dev_prediction_RU_all.xlsx', index=False)
+
+
+# $\text { Precision }=\frac{\text { Total number of correctly predicted entities }}{\text { Total number of predicted entities }}$
+
+# In[128]:
+
+
+# precision = total_num_c_pred_e/total_num_pred_e
+
+
+# $\text { Recall }=\frac{\text { Total number of correctly predicted entities }}{\text { Total number of gold entities }}$
+
+# In[129]:
+
+
+# recall = total_num_c_pred_e/total_num_gold_e
+
+
+# $F=\frac{2}{1 / \text { Precision }+1 / \text { Recall }}$
+
+# In[130]:
+
+
+# f_score = 2/((1/precision)+(1/recall))
+
+
+# In[131]:
+
+
+# End the timer
+end_time = time.time()
+
+# Calculate the elapsed time in seconds
+elapsed_seconds = end_time - start_time
+print(f"Execution Time: {elapsed_seconds:.2f} seconds")
 print("Everything Executed👍")
