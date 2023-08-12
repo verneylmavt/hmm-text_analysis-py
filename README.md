@@ -66,9 +66,9 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
 
      If all goes as planned, `"Everything Executed👍"` will greet you in the terminal.
 
-     ***
+   ***
 
-     **Heads Up**: There are no infinite loops in the code, it takes ~10s to execute
+   **Heads Up**: There are no infinite loops in the code, it takes ~10s to execute
 
 4. **Test F-Score**
 
