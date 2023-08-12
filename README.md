@@ -1,3 +1,4 @@
+
 # Informal Text Sentiment Analysis System
 
 In the realm of digital communication, particularly social media, there exists a plethora of informal texts — be it a tweet on Twitter or a status on Weibo. This vast sea of data holds valuable insights on the sentiments and emotions of users towards a multitude of subjects, from products to news and more. Tapping into these sentiments has always been a challenging yet rewarding endeavor. It offers benefits like tailoring product recommendations, predicting societal reactions, and even forecasting financial market dynamics.
@@ -14,23 +15,23 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
 
 1. **Clone the Repository**
 
-```bash
-git clone https://github.com/verneylmavt/50.007-1D_Project.git
-```
+	```bash
+	git clone https://github.com/verneylmavt/50.007-1D_Project.git
+	```
 
 2. **Navigate to the Project Directory**
 
-For the ES Dataset:
+	For the ES Dataset:
 
-```bash
-cd 50.007-1D_Project/ES
-```
+	```bash
+	cd 50.007-1D_Project/ES
+	```
 
-For the RU Dataset:
+	For the RU Dataset:
 
-```bash
-cd 50.007-1D_Project/RU
-```
+	```bash
+	cd 50.007-1D_Project/RU
+	```
 
 3. **Execute The Jupyter Notebook / Python Files**
 
@@ -65,20 +66,20 @@ cd 50.007-1D_Project/RU
   ```
 
   If all goes as planned, `"Everything Executed👍"` will greet you in the terminal.
-
-**Heads Up**: There are no infinite loops in the code, usually it takes 5-10 minutes to execute
+  ***
+	**Heads Up**: There are no infinite loops in the code, this code takes 5-10 minutes to execute
 
 4. **Test F-Score**
 
-After executing all codes, you can check the F-Scores via:
+	After executing all codes, you can check the F-Scores via:
 
-```bash
-python evalResult.py dev.out <FILENAME_HERE>
-```
+	```bash
+	python evalResult.py dev.out <FILENAME_HERE>
+	```
 
 ## Dependencies
 
-**Note**: Ensure that in your working environment you all the required dependencies. If it's not installed, you can get it using:
+**Note**: Ensure that in your working environment, you have all the required dependencies. If it is not installed, you can get it using:
 
 ```bash
 pip install jupyter
@@ -86,7 +87,7 @@ pip install numpy
 pip install pandas
 ```
 
-Or alternatively, you can download all the dependecies using:
+Or alternatively:
 
 ```bash
 pip install -r requirements.txt
