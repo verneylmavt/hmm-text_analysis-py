@@ -1,3 +1,4 @@
+
 # Informal Text Sentiment Analysis System
 
 In the realm of digital communication, particularly social media, there exists a plethora of informal texts — be it a tweet on Twitter or a status on Weibo. This vast sea of data holds valuable insights on the sentiments and emotions of users towards a multitude of subjects, from products to news and more. Tapping into these sentiments has always been a challenging yet rewarding endeavor. It offers benefits like tailoring product recommendations, predicting societal reactions, and even forecasting financial market dynamics.
@@ -64,9 +65,9 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
 	  python ru_hmm_dev_test.py
 	  ```
 
-  If all goes as planned, `"Everything Executed👍"` will greet you in the terminal.
-  ***
-	**Heads Up**: There are no infinite loops in the code, this code takes 5-10 minutes to execute
+	  If all goes as planned, `"Everything Executed👍"` will greet you in the terminal.
+	  ***
+		**Heads Up**: There are no infinite loops in the code, this code takes 5-10 minutes to execute
 
 4. **Test F-Score**
 
