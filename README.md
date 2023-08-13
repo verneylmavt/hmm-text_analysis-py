@@ -11,7 +11,6 @@ For this project, we delve deep into two unique datasets: RU and ES. These datas
 In essence, this endeavor is not merely about creating a sentiment analysis tool. It's about understanding the language of social media, respecting its nuances, and extracting invaluable sentiments that can help businesses and individuals make informed decisions.
 
 ## Setup & Execution
-**PLEASE REFER TO JUPYTER NOTEBOOK FOR FULL DOCUMENTATION**
 
 1. **Clone the Repository**
 
@@ -34,6 +33,8 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
    ```
 
 3. **Execute The Jupyter Notebook / Python Files**
+   
+   **PLEASE REFER TO JUPYTER NOTEBOOK FOR FULL DOCUMENTATION**
 
    - **Jupyter**
 
@@ -71,7 +72,7 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
 
    **Heads Up**: There are no infinite loops in the code, it takes ~10s to execute
 
-4. **Test F-Score**
+5. **Test F-Score**
 
    After executing the code, the program will generate following files:
    - `dev.p1.out`
