@@ -11,6 +11,7 @@ For this project, we delve deep into two unique datasets: RU and ES. These datas
 In essence, this endeavor is not merely about creating a sentiment analysis tool. It's about understanding the language of social media, respecting its nuances, and extracting invaluable sentiments that can help businesses and individuals make informed decisions.
 
 ## Setup & Execution
+**PLEASE REFER TO JUPYTER NOTEBOOK FOR FULL DOCUMENTATION**
 
 1. **Clone the Repository**
 
