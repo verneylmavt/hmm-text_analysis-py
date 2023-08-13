@@ -20,13 +20,13 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
 
 2. **Navigate to the Project Directory**
 
-   For the ES Dataset:
+   For ES Dataset:
 
    ```bash
    cd 50.007-1D_Project/ES
    ```
 
-   For the RU Dataset:
+   For RU Dataset:
 
    ```bash
    cd 50.007-1D_Project/RU
@@ -36,13 +36,13 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
 
    - **Jupyter**
 
-     For the ES Dataset:
+     For ES Dataset:
 
      ```bash
      jupyter notebook es_hmm_dev_test.ipynb
      ```
 
-     For the RU Dataset:
+     For RU Dataset:
 
      ```bash
      jupyter notebook ru_hmm_dev_test.ipynb
@@ -52,13 +52,13 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
 
    - **Python**
 
-     For the ES Dataset:
+     For ES Dataset:
 
      ```bash
      python es_hmm_dev_test.py
      ```
 
-     For the RU Dataset:
+     For RU Dataset:
 
      ```bash
      python ru_hmm_dev_test.py
