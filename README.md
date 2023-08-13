@@ -72,8 +72,14 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
 
 4. **Test F-Score**
 
-   After executing all codes, the program will generate .out that you can check the F-Scores via:
-
+   After executing the code, the program will generate following files:
+   - `dev.p1.out`
+   - `dev.p2.out`
+   - `dev.p3.2nd.out`
+   - `dev.p3.8th.out`
+   - `dev.p4.out`
+   - `test.p4.out`
+ Now, you can check the F-Score via:
    ```bash
    python evalResult.py dev.out <FILENAME_HERE>
    ```
