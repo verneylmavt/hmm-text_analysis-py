@@ -79,6 +79,7 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
    - `dev.p3.8th.out`
    - `dev.p4.out`
    - `test.p4.out`
+ 
  Now, you can check the F-Score via:
    ```bash
    python evalResult.py dev.out <FILENAME_HERE>
