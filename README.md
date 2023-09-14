@@ -15,7 +15,7 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/verneylmavt/50.007-1D_Project.git
+   git clone https://github.com/verneylmavt/hmm-text_analysis-py.git
    ```
 
 2. **Navigate to the Project Directory**
@@ -23,13 +23,13 @@ In essence, this endeavor is not merely about creating a sentiment analysis tool
    For ES Dataset:
 
    ```bash
-   cd 50.007-1D_Project/ES
+   cd hmm-text_analysis-py/ES
    ```
 
    For RU Dataset:
 
    ```bash
-   cd 50.007-1D_Project/RU
+   cd hmm-text_analysis-py/RU
    ```
 
 3. **Execute The Jupyter Notebook / Python Files**
