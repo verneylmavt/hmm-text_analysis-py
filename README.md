@@ -10,6 +10,8 @@ For this project, we delve deep into two unique datasets: RU and ES. These datas
 
 In essence, this endeavor is not merely about creating a sentiment analysis tool. It's about understanding the language of social media, respecting its nuances, and extracting invaluable sentiments that can help businesses and individuals make informed decisions.
 
+For more information regarding the project, please read more **[here](https://github.com/verneylmavt/hmm-text_analysis-py/blob/babaacabce50bba6bdb52408ab84354e23a8c90a/hmm_project_info.pdf)**.
+
 ## Setup & Execution
 
 1. **Clone the Repository**
