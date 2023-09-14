@@ -109,8 +109,8 @@ pip install -r requirements.txt
 
 This project was made possible thanks to the hard work and dedication of the following team members:
 
-- **[Elvern Neylmav Tanny](https://github.com/verneylmavt)**
 - **[Dorishetti Kaushik Varma](https://github.com/varmz120)**
+- **[Elvern Neylmav Tanny](https://github.com/verneylmavt)**
 - **[Harini Parthasarathy](https://github.com/reenee1601)**
 
 Kudos to all contributors for their invaluable insights and dedication.
