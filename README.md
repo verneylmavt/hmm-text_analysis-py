@@ -35,7 +35,7 @@ For more information regarding the project, please read more **[here](https://gi
    ```
 
 3. **Execute The Jupyter Notebook / Python Files**
-   
+
    **PLEASE REFER TO JUPYTER NOTEBOOK FOR FULL DOCUMENTATION**
 
    - **Jupyter**
@@ -74,20 +74,22 @@ For more information regarding the project, please read more **[here](https://gi
 
    **Heads Up**: There are no infinite loops in the code, it takes ~10s to execute
 
-5. **Test F-Score**
+4. **Test F-Score**
 
    After executing the code, the program will generate following files:
+
    - `dev.p1.out`
    - `dev.p2.out`
    - `dev.p3.2nd.out`
    - `dev.p3.8th.out`
    - `dev.p4.out`
    - `test.p4.out`
- 
-    Now, you can check the F-Score via:
-      ```bash
-      python evalResult.py dev.out <FILENAME_HERE>
-      ```
+
+   Now, you can check the F-Score via:
+
+   ```bash
+   python evalResult.py dev.out <FILENAME_HERE>
+   ```
 
 ## Dependencies
 
@@ -114,3 +116,5 @@ This project was made possible thanks to the hard work and dedication of the fol
 - **[Harini Parthasarathy](https://github.com/reenee1601)**
 
 Kudos to all contributors for their invaluable insights and dedication.
+
+<!-- This is a comment --!>
