@@ -117,4 +117,4 @@ This project was made possible thanks to the hard work and dedication of the fol
 
 Kudos to all contributors for their invaluable insights and dedication.
 
-<!-- THIS IS COMMENT --!>
+<!-- THIS IS A COMMENT --!>
